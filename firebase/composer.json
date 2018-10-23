@@ -4,6 +4,7 @@
     "type": "project",
     "minimum-stability": "dev",
     "require": {
-        "kreait/firebase-php": "^4.17.0"
+        "kreait/firebase-php": "^4.17.0",
+        "php": ">=7.2.0"
     }
 }
