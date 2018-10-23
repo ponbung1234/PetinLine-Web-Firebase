@@ -1,0 +1,9 @@
+{
+    "name": "thanapon.a/firebase",
+    "description": "PHP firebase",
+    "type": "project",
+    "minimum-stability": "dev",
+    "require": {
+        "kreait/firebase-php": "^4.17.0"
+    }
+}
