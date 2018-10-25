@@ -11,7 +11,7 @@ require_once('Navbar.php');
 ?>
 <br>
 <br>
-
+ssss
 <header class="w3-container w3-red w3-center" style="padding:128px 16px">
   <h1 class="w3-margin w3-jumbo">Let's help the dogs</h1>
   <p class="w3-xlarge">Take a picture of a dog and help them</p>
