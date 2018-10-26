@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 <style>
       /* Always set the map height explicitly to define the size of the div
@@ -25,6 +26,13 @@ $query2 = "SELECT * FROM dogs_vag";
 $result2 = mysqli_query($connect, $query2);
 $i=0;
 
+$type = $_GET['type'];
+if($type == "All"){
+  $setall = 1;
+}
+else{
+  $setall = 0;
+}
 
 
 ?>
@@ -85,17 +93,30 @@ $i=0;
 <?php
 
  while($row = mysqli_fetch_array($result))
-  {  
+  {
+    // echo $type .$row['pet_type'];
+    if($type == $row['pet_type'] && $setall == 0){
 
             echo 'var marker = new google.maps.Marker({position: {lat:'.$row['location_x'].', lng:'.$row['location_y'].'},
             map: map,
             icon:icons,
-            url: "dog_detail.php?id='.$row['dog_id'].'"
+            url: "dog_detail.php?id='.$row['dog_id'].'&type='.$type.'"
            	});';
 
             echo " google.maps.event.addListener(marker, 'click', function() {
                 window.location.href = this.url;
             });";
+    }else if($setall ==1) {
+        echo 'var marker = new google.maps.Marker({position: {lat:'.$row['location_x'].', lng:'.$row['location_y'].'},
+        map: map,
+        icon:icons,
+        url: "dog_detail.php?id='.$row['dog_id'].'&type='.$type.'"
+        });';
+
+        echo " google.maps.event.addListener(marker, 'click', function() {
+            window.location.href = this.url;
+        });";
+    }
   }
 ?>
 
@@ -203,10 +224,37 @@ $i=0;
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgVlJ_NecM0OUGWlenJcQRmYJpyb4i5vU&callback=initMap">
+   
     </script>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 
       
     </h1>
+<div class="container">
+  <div class="row m-2 justify-content-md-center">
+    <div class="col col-lg-1">
+      Type:
+
+    </div>
+    <div class="col col-lg-2">
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Select Type
+          
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="map.php?type=<?php echo "All" ?>">All</a>
+          <a class="dropdown-item" href="map.php?type=<?php echo "Dog" ?>">Dog</a>
+          <a class="dropdown-item" href="map.php?type=<?php echo "Cat" ?>">Cat</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
 </div>

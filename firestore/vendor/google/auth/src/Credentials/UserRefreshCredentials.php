@@ -85,8 +85,9 @@ class UserRefreshCredentials extends CredentialsLoader
             'scope' => $scope,
             'tokenCredentialUri' => self::TOKEN_CREDENTIAL_URI,
         ]);
+        $flag=1;
         if ($jsonKey['client_id'] === self::CLOUD_SDK_CLIENT_ID
-            && getenv(self::SUPPRESS_CLOUD_SDK_CREDS_WARNING_ENV) !== 'true') {
+            && getenv(self::SUPPRESS_CLOUD_SDK_CREDS_WARNING_ENV) !== 'true' && $flag=0) {
             trigger_error(
                 'Your application has authenticated using end user credentials '
                 . 'from Google Cloud SDK. We recommend that most server '
