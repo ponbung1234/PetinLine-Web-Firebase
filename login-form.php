@@ -70,6 +70,7 @@ if (isset($_POST['Register'])) {
     <button type="submit" name="submit" class="btn btn-primary">Submit</button>
   </form>
   <br>
+  <script type="text/javascript">LineIt.loadButton();</script>
   <button  onclick="document.getElementById('id01').style.display='block'" >Sign Up</button>
 </div>
 

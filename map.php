@@ -30,9 +30,16 @@ $type = $_GET['type'];
 if($type == "All"){
   $setall = 1;
 }
-else{
-  $setall = 0;
+elseif($type == "Cat"){
+  $setall = 2;
 }
+elseif($type == "Dog"){
+  $setall = 3;
+}
+else{
+  $setall = 1;
+}
+
 
 
 ?>
@@ -95,7 +102,8 @@ else{
  while($row = mysqli_fetch_array($result))
   {
     // echo $type .$row['pet_type'];
-    if($type == $row['pet_type'] && $setall == 0){
+    // Dog
+    if($type == $row['pet_type'] && $setall == 3){
 
             echo 'var marker = new google.maps.Marker({position: {lat:'.$row['location_x'].', lng:'.$row['location_y'].'},
             map: map,
@@ -106,8 +114,34 @@ else{
             echo " google.maps.event.addListener(marker, 'click', function() {
                 window.location.href = this.url;
             });";
-    }else if($setall ==1) {
+    // Cat
+    }if($type == $row['pet_type'] && $setall == 2) {
         echo 'var marker = new google.maps.Marker({position: {lat:'.$row['location_x'].', lng:'.$row['location_y'].'},
+        map: map,
+        icon:icons2,
+        url: "dog_detail.php?id='.$row['dog_id'].'&type='.$type.'"
+        });';
+
+        echo " google.maps.event.addListener(marker, 'click', function() {
+            window.location.href = this.url;
+        });";
+    // All
+    }elseif($setall == 1){
+      if($row['pet_type'] == "Cat"){
+        echo '      var icons = {
+          url: "images/DogIcon2.png", // url
+          scaledSize: new google.maps.Size(50, 50), // scaled size
+        };';
+      }
+      else{
+        echo '      var icons = {
+          url: "images/DogIcon.png", // url
+          scaledSize: new google.maps.Size(50, 50), // scaled size
+        };';
+      }
+
+
+      echo 'var marker = new google.maps.Marker({position: {lat:'.$row['location_x'].', lng:'.$row['location_y'].'},
         map: map,
         icon:icons,
         url: "dog_detail.php?id='.$row['dog_id'].'&type='.$type.'"
@@ -116,26 +150,27 @@ else{
         echo " google.maps.event.addListener(marker, 'click', function() {
             window.location.href = this.url;
         });";
+
     }
   }
 ?>
 
 <?php
 
- while($row2 = mysqli_fetch_array($result2))
-  {  
+//  while($row2 = mysqli_fetch_array($result2))
+//   {  
 
-            echo 'var marker2 = new google.maps.Marker({position: {lat:'.$row2['dc_x'].', lng:'.$row2['dc_y'].'},
-            map: map,
-            icon:icons2,
-            url: "dogsvag_detail.php?id='.$row2['dc_id'].'"
-            });';
+//             echo 'var marker2 = new google.maps.Marker({position: {lat:'.$row2['dc_x'].', lng:'.$row2['dc_y'].'},
+//             map: map,
+//             icon:icons2,
+//             url: "dogsvag_detail.php?id='.$row2['dc_id'].'"
+//             });';
 
-            echo " google.maps.event.addListener(marker2, 'click', function() {
-                window.location.href = this.url;
-            });";
-  }
-?>
+//             echo " google.maps.event.addListener(marker2, 'click', function() {
+//                 window.location.href = this.url;
+//             });";
+//   }
+// ?>
            
             
 
@@ -236,13 +271,20 @@ else{
 <div class="container">
   <div class="row m-2 justify-content-md-center">
     <div class="col col-lg-1">
-      Type:
+      Search for pets:
 
     </div>
     <div class="col col-lg-2">
       <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Select Type
+          <?php 
+            if($_GET['type']){
+              echo $type;
+            }
+            else{
+              echo "Select type!";
+            }
+          ?>
           
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
