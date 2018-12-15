@@ -18,7 +18,12 @@ h5{
 <body>
 
 <?php
+
 require_once('Navbar.php');
+
+//connection to firebase as $db
+
+
 ?>
 
 <!-- Header -->
@@ -27,7 +32,7 @@ require_once('Navbar.php');
   <p class="w3-xlarge">LINE 2018</p>
   <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top" onclick="javascript:location.href='dog_list.php'">Get Started</button>
 </header>
-
+hello
 
 <?php
 require_once('map.php');
@@ -78,6 +83,7 @@ require_once('map.php');
 
 
 <?php
+
 include("footer.php"); 
 ?>
 </body>
